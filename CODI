@@ -1,0 +1,56 @@
+import requests
+from bs4 import BeautifulSoup
+import pandas as pd
+
+page = requests.get("https://www.amazon.es/gp/new-releases/hpc/ref=zg_bsnr_nav_0")
+
+soup = BeautifulSoup(page.content, 'html.parser')
+
+# Posició del producte
+pos = soup.find_all("span", class_ = "zg-badge-text")
+
+posicio = list()
+count = 0
+for i in pos:
+    if count < 50:
+        posicio.append(i.text)
+    else:
+        break
+    count += 1
+
+print(posicio)
+
+# Nom del producte
+nom = soup.find_all("a", class_ = "a-link-normal")
+
+noms = list()
+count = 0
+for i in nom:
+    if count < 20:
+        noms.append(i.text)
+    else:
+        break
+    count += 1
+
+print(noms)
+
+# Puntuació producte
+punts = soup.find_all("span", class_ = "a-icon-alt")
+
+puntuacio = list()
+count = 0
+for i in punts:
+    if count < 50:
+        puntuacio.append(i.text)
+    else:
+        break
+    count += 1
+
+print(puntuacio)
+
+print(len(puntuacio))
+
+
+
+
+# HEM DE FER UNA FUNCIÓ QUE DONAT UN NOM I UNA CLASS TREGUI LO QUE VOLEM
