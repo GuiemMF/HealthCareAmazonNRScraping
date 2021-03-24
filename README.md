@@ -1,4 +1,4 @@
-# TipologiaDadesWebScraping wrgwrgwr
+# TipologiaDadesWebScraping
 Amazon salud y cuidado personal: https://www.amazon.es/gp/new-releases/hpc/ref=zg_bsnr_nav_0
 1. Context. Explicar en quin context s'ha recol·lectat la informació. Explicar per què el lloc web triat proporciona aquesta informació. Guiem
 2. Definir un títol pel dataset. Triar un títol que sigui descriptiu. Guiem
