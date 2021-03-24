@@ -1,0 +1,12 @@
+4. Representació gràfica. Presentar un esquema o diagrama que identifiqui el 
+dataset visualment i el projecte escollit.
+
+
+5. Contingut. Explicar els camps que inclou el dataset, el període de temps de les 
+dades i com s'ha recollit.
+
+
+6. Agraïments. Presentar el propietari del conjunt de dades. És necessari incloure 
+cites d'anàlisis anteriors o, en cas de no haver-les, justificar aquesta cerca amb 
+anàlisis similars. 
+
