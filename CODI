@@ -9,7 +9,6 @@ soup = BeautifulSoup(page.content, 'html.parser')
 li = soup.li
 ol = soup.ol
 
-
 link = list()
 nom = list()
 estrella = list()
@@ -19,8 +18,10 @@ link_reviews = list()
 preus = list()
 
 #siblings = li.
+info_list = li.find()
+info_list.extend(li.find_next_siblings())
 
-for info in li.find_next_siblings():
+for info in info_list:
     if info is None:
         continue
     else:
