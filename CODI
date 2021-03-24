@@ -2,12 +2,11 @@ import requests
 from bs4 import BeautifulSoup
 import pandas as pd
 
-page = requests.get("https://www.amazon.es/gp/new-releases/hpc/ref=zg_bsnr_nav_0")
+page1 = requests.get("https://www.amazon.es/gp/new-releases/hpc/ref=zg_bsnr_nav_0")
+page2 = requests.get("https://www.amazon.es/gp/new-releases/hpc/ref=zg_bsnr_pg_2?ie=UTF8&pg=2")
 
-soup = BeautifulSoup(page.content, 'html.parser')
-
-li = soup.li
-ol = soup.ol
+soup1 = BeautifulSoup(page1.content, 'html.parser')
+soup2 = BeautifulSoup(page2.content, 'html.parser')
 
 link = list()
 nom = list()
@@ -17,48 +16,53 @@ reviews = list()
 link_reviews = list()
 preus = list()
 
-#siblings = li.
-info_list = li.find()
-info_list.extend(li.find_next_siblings())
-
-for info in info_list:
-    if info is None:
-        continue
-    else:
-        if info.a is None:
-            link.append("null")
+def Scraping_Amazon (info_list):
+    for info in info_list:
+        if info is None:
+            continue
         else:
-            link.append(info.a.get("href"))
-        if info.find("div", class_="p13n-sc-truncate p13n-sc-line-clamp-2 p13n-sc-truncate-desktop-type2") is None:
-            if info.find("div", class_="p13n-sc-truncate p13n-sc-line-clamp-3 p13n-sc-truncate-desktop-type2") is None:
-                nom.append("null")
+            if info.a is None:
+                link.append("null")
             else:
-                nom_aux = info.find("div", class_="p13n-sc-truncate p13n-sc-line-clamp-3 p13n-sc-truncate-desktop-type2").get_text()
+                link.append("https://www.amazon.es" + info.a.get("href"))
+            if info.find("div", class_="p13n-sc-truncate p13n-sc-line-clamp-2 p13n-sc-truncate-desktop-type2") is None:
+                if info.find("div", class_="p13n-sc-truncate p13n-sc-line-clamp-3 p13n-sc-truncate-desktop-type2") is None:
+                    nom.append("null")
+                else:
+                    nom_aux = info.find("div", class_="p13n-sc-truncate p13n-sc-line-clamp-3 p13n-sc-truncate-desktop-type2").get_text()
+                    nom.append(nom_aux.strip())
+            else:
+                nom_aux = info.find("div", class_="p13n-sc-truncate p13n-sc-line-clamp-2 p13n-sc-truncate-desktop-type2").get_text()
                 nom.append(nom_aux.strip())
-        else:
-            nom_aux = info.find("div", class_="p13n-sc-truncate p13n-sc-line-clamp-2 p13n-sc-truncate-desktop-type2").get_text()
-            nom.append(nom_aux.strip())
-        if info.i is None:
-            estrella.append("null")
-        else:
-            estrella.append(info.i.text)
-        if info.find("span", class_="zg-badge-text") is None:
-            id_.append("null")
-        else:
-            id_.append(info.find("span", class_="zg-badge-text").text)
-        if info.find("a", class_="a-size-small a-link-normal") is None:
-            reviews.append("null")
-        else:
-            reviews.append(info.find("a", class_="a-size-small a-link-normal").text)
-        if info.find("a", class_="a-size-small a-link-normal") is None:
-            link_reviews.append("null")
-        else:
-            link_reviews.append(info.find("a", class_="a-size-small a-link-normal").get("href"))
-        if info.find("span", class_="a-size-base a-color-price") is None:
-            preus.append("null")
-        else:
-            preus.append(info.find("span", class_="a-size-base a-color-price").text)
+            if info.i is None:
+                estrella.append("null")
+            else:
+                estrella.append(info.i.text)
+            if info.find("span", class_="zg-badge-text") is None:
+                id_.append("null")
+            else:
+                id_.append(info.find("span", class_="zg-badge-text").text)
+            if info.find("a", class_="a-size-small a-link-normal") is None:
+                reviews.append("null")
+            else:
+                reviews.append(info.find("a", class_="a-size-small a-link-normal").text)
+            if info.find("a", class_="a-size-small a-link-normal") is None:
+                link_reviews.append("null")
+            else:
+                link_reviews.append("https://www.amazon.es" + info.find("a", class_="a-size-small a-link-normal").get("href"))
+            if info.find("span", class_="a-size-base a-color-price") is None:
+                preus.append("null")
+            else:
+                preus.append(info.find("span", class_="a-size-base a-color-price").text)
+
+
+info_list1 = soup1.li.find()
+info_list1.extend(soup1.li.find_next_siblings())
+Scraping_Amazon(info_list1)
+
+info_list2 = soup2.li.find()
+info_list2.extend(soup2.li.find_next_siblings())
+Scraping_Amazon(info_list2)
 
 df = pd.DataFrame({'ID': id_,'Nom': nom, 'Link_Productes': link, 'Preu': preus, 'Puntuació': estrella, 'Ressenyes': reviews, 'Link_Ressenyes': link_reviews})
-
 df.to_csv('Amazon_Salut.csv', index = False)
