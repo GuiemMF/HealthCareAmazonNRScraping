@@ -6,51 +6,58 @@ page = requests.get("https://www.amazon.es/gp/new-releases/hpc/ref=zg_bsnr_nav_0
 
 soup = BeautifulSoup(page.content, 'html.parser')
 
-# Posició del producte
-pos = soup.find_all("span", class_ = "zg-badge-text")
+li = soup.li
+ol = soup.ol
 
-posicio = list()
-count = 0
-for i in pos:
-    if count < 50:
-        posicio.append(i.text)
+
+link = list()
+nom = list()
+estrella = list()
+id_ = list()
+reviews = list()
+link_reviews = list()
+preus = list()
+
+#siblings = li.
+
+for info in li.find_next_siblings():
+    if info is None:
+        continue
     else:
-        break
-    count += 1
+        if info.a is None:
+            link.append("null")
+        else:
+            link.append(info.a.get("href"))
+        if info.find("div", class_="p13n-sc-truncate p13n-sc-line-clamp-2 p13n-sc-truncate-desktop-type2") is None:
+            if info.find("div", class_="p13n-sc-truncate p13n-sc-line-clamp-3 p13n-sc-truncate-desktop-type2") is None:
+                nom.append("null")
+            else:
+                nom_aux = info.find("div", class_="p13n-sc-truncate p13n-sc-line-clamp-3 p13n-sc-truncate-desktop-type2").get_text()
+                nom.append(nom_aux.strip())
+        else:
+            nom_aux = info.find("div", class_="p13n-sc-truncate p13n-sc-line-clamp-2 p13n-sc-truncate-desktop-type2").get_text()
+            nom.append(nom_aux.strip())
+        if info.i is None:
+            estrella.append("null")
+        else:
+            estrella.append(info.i.text)
+        if info.find("span", class_="zg-badge-text") is None:
+            id_.append("null")
+        else:
+            id_.append(info.find("span", class_="zg-badge-text").text)
+        if info.find("a", class_="a-size-small a-link-normal") is None:
+            reviews.append("null")
+        else:
+            reviews.append(info.find("a", class_="a-size-small a-link-normal").text)
+        if info.find("a", class_="a-size-small a-link-normal") is None:
+            link_reviews.append("null")
+        else:
+            link_reviews.append(info.find("a", class_="a-size-small a-link-normal").get("href"))
+        if info.find("span", class_="a-size-base a-color-price") is None:
+            preus.append("null")
+        else:
+            preus.append(info.find("span", class_="a-size-base a-color-price").text)
 
-print(posicio)
+df = pd.DataFrame({'ID': id_,'Nom': nom, 'Link_Productes': link, 'Preu': preus, 'Puntuació': estrella, 'Ressenyes': reviews, 'Link_Ressenyes': link_reviews})
 
-# Nom del producte
-nom = soup.find_all("a", class_ = "a-link-normal")
-
-noms = list()
-count = 0
-for i in nom:
-    if count < 20:
-        noms.append(i.text)
-    else:
-        break
-    count += 1
-
-print(noms)
-
-# Puntuació producte
-punts = soup.find_all("span", class_ = "a-icon-alt")
-
-puntuacio = list()
-count = 0
-for i in punts:
-    if count < 50:
-        puntuacio.append(i.text)
-    else:
-        break
-    count += 1
-
-print(puntuacio)
-
-print(len(puntuacio))
-
-
-
-
-# HEM DE FER UNA FUNCIÓ QUE DONAT UN NOM I UNA CLASS TREGUI LO QUE VOLEM
+df.to_csv('Amazon_Salut.csv', index = False)
