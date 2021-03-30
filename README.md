@@ -18,12 +18,15 @@ Presentar el propietari del conjunt de dades. És necessari incloure cites d'an�
 # 7. Inspiració. 
 Explicar per què és interessant aquest conjunt de dades i quines preguntes es pretenen respondre. És necessari comparar amb les anàlisis anteriors presentades a l’apartat 6. Guiem
 Tal com explicat en aquest context de crisi sanitària és especialment important la rellevància que han pres el productes especialitzats en salut en el dia a dia dels consumidors. Aquest conjunt de dades pot servir com una aproximació simplificada a l'oferta generada. A partir d'ell es pot respondre quines són les tendències en l'oferta de productes online de tipus sanitària, així com es valoren i quins preus tenen. D'aquest manera es poden intuir oportunitats d'inversió, conèixer de manera simplificada quina és l'orientació productiva d'aquest mercat o el dinamisme del "branching" en aquest sector.
-8. Llicència. Seleccionar una d'aquestes llicències pel dataset resultant i explicar el motiu de la seva selecció: Junts
+# 8. Llicència. 
+Seleccionar una d'aquestes llicències pel dataset resultant i explicar el motiu de la seva selecció: Junts
 ○ Released Under CC0: Public Domain License
 ○ Released Under CC BY-NC-SA 4.0 License
 ○ Released Under CC BY-SA 4.0 License
 ○ Database released under Open Database License, individual contents under Database Contents License
 ○ Other (specified above)
 ○ Unknown License
-9. Codi. Adjuntar el codi amb el qual s'ha generat el dataset, preferiblement en Python o, alternativament, en R. Junts
-10. Dataset. Publicar el dataset en format CSV a Zenodo (obtenció del DOI) amb una breu descripció. Junts
+# 9. Codi. 
+Adjuntar el codi amb el qual s'ha generat el dataset, preferiblement en Python o, alternativament, en R. Junts
+# 10. Dataset. 
+Publicar el dataset en format CSV a Zenodo (obtenció del DOI) amb una breu descripció. Junts
