@@ -25,14 +25,10 @@ def Scraping_Amazon (info_list):
                 link.append("null")
             else:
                 link.append("https://www.amazon.es" + info.a.get("href"))
-            if info.find("div", class_="p13n-sc-truncate p13n-sc-line-clamp-2 p13n-sc-truncate-desktop-type2") is None:
-                if info.find("div", class_="p13n-sc-truncate p13n-sc-line-clamp-3 p13n-sc-truncate-desktop-type2") is None:
-                    nom.append("null")
-                else:
-                    nom_aux = info.find("div", class_="p13n-sc-truncate p13n-sc-line-clamp-3 p13n-sc-truncate-desktop-type2").get_text()
-                    nom.append(nom_aux.strip())
+            if info.find("div", class_="p13n-sc-truncate") is None:
+                nom.append("null")
             else:
-                nom_aux = info.find("div", class_="p13n-sc-truncate p13n-sc-line-clamp-2 p13n-sc-truncate-desktop-type2").get_text()
+                nom_aux = info.find("div", class_="p13n-sc-truncate").get_text()
                 nom.append(nom_aux.strip())
             if info.i is None:
                 estrella.append("null")
