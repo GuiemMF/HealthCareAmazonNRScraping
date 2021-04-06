@@ -10,4 +10,4 @@ pip install panda
 
 Les dades que s'extreuen són el nom, el link, les reviews i el preu (Futures modificacions tenen plantificat separar per sí hi ha preu únic o existeix un interval). 
 
-Actualment, el dataset encara no té DOI a Zenodo a l'espera de tenir una versió totalment definitiva. Tanmateix en aquest repositori es comparteix el dataset generat a data del 30/03/2021.
+El doi del dataset és 10.5281/zenodo.4646807. En aquest repositori es comparteix el dataset generat a data del 06/04/2021.
