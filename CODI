@@ -2,12 +2,15 @@ import requests
 from bs4 import BeautifulSoup
 import pandas as pd
 
+# Pàgines web d'Amazon d'on extreim la informació
 page1 = requests.get("https://www.amazon.es/gp/new-releases/hpc/ref=zg_bsnr_nav_0")
 page2 = requests.get("https://www.amazon.es/gp/new-releases/hpc/ref=zg_bsnr_pg_2?ie=UTF8&pg=2")
 
+# Transformem l'estructura HTML de cada pàgina a BeautifulSoup
 soup1 = BeautifulSoup(page1.content, 'html.parser')
 soup2 = BeautifulSoup(page2.content, 'html.parser')
 
+# Les 7 llistes o guardarem els valors de cada registre
 link = list()
 nom = list()
 estrella = list()
@@ -17,6 +20,9 @@ link_reviews = list()
 preus = list()
 
 def Scraping_Amazon (info_list):
+    '''Funció per a extreure els 7 valors de cada registre.
+    Entrada: llista amb el pares de cada registre del BeautifulSoup
+    Sortida: afageix els 7 valors buscats de cada pare a cada llista corresponent'''
     for info in info_list:
         if info is None:
             continue
@@ -52,13 +58,16 @@ def Scraping_Amazon (info_list):
                 preus.append(info.find("span", class_="a-size-base a-color-price").text)
 
 
+# Els 50 pares de la primera pàgina web
 info_list1 = soup1.li.find()
 info_list1.extend(soup1.li.find_next_siblings())
 Scraping_Amazon(info_list1)
 
+# Els 50 pares de la segona pàgina web
 info_list2 = soup2.li.find()
 info_list2.extend(soup2.li.find_next_siblings())
 Scraping_Amazon(info_list2)
 
+# Amb les 7 llistes creem el fitxer csv resultant
 df = pd.DataFrame({'ID': id_,'Nom': nom, 'Link_Productes': link, 'Preu': preus, 'Puntuació': estrella, 'Ressenyes': reviews, 'Link_Ressenyes': link_reviews})
 df.to_csv('Amazon_Salut.csv', index = False)
